@@ -10,4 +10,7 @@ define('DB_NAME', '');
 define('APPROOT', dirname(dirname(__FILE__)));
 
 //URLROOT
-define('URLROOT', 'localhost/mvcframework'); //Lien à changer à chaque nouveau projet
+define('URLROOT', 'localhost/mvcframework'); //Lien à changer à chaque nouveau projet -- URLROOT permet de ne pas avoir à copier-coller le l'url à chaque fois
+
+//Nom du site
+define('SITENAME', 'MVC Framework');
