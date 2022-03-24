@@ -10,17 +10,22 @@ class Database {
     private $dbHandler;
     private $error;
 
-    public function __construct(){
-        $conn = 'mysqli:host=' . $this->dbHost .';dbname=' . $this->dbName;
-        $options = array( //Permet de mieux gérer les erreurs
+    public function __construct() {
+        $conn = 'mysql:host=' . $this->dbHost . ';dbname=' . $this->dbName;
+        $options = array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
         try {
             $this->dbHandler = new PDO($conn, $this->dbUser, $this->dbPass, $options);
-        } catch (PDOException $e){
+        } catch (PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;
         }
+    }
+
+    //On va faire des requêtes
+    public function query($sql){
+
     }
 }

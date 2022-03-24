@@ -6,7 +6,7 @@ class Controller {
         //Require le fichier model
         require_once '../app/models/' . $model . '.php';
          //Instancie le model
-        require new $model();
+        return new $model();
     }
 
     //Charge le view (Check si fichier du view existe)
