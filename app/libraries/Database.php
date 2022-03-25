@@ -1,6 +1,7 @@
 <?php
 
-class Database {
+class Database
+{
     private $dbHost = DB_HOST;
     private $dbUser = DB_USER;
     private $dbPass = DB_PASS;
@@ -10,7 +11,8 @@ class Database {
     private $dbHandler;
     private $error;
 
-    public function __construct() {
+    public function __construct()
+    {
         $conn = 'mysql:host=' . $this->dbHost . ';dbname=' . $this->dbName;
         $options = array(
             PDO::ATTR_PERSISTENT => true,
@@ -25,7 +27,49 @@ class Database {
     }
 
     //On va faire des requêtes
-    public function query($sql){
+    public function query($sql)
+    {
+        $this->statement = $this->dbHandler->prepare($sql);
+    }
 
+    //Bind values
+    public function bind($parameter, $value, $type = null)
+    {
+        switch (is_null($type)) {
+            case is_int($value):
+                $type = PDO::PARAM_INT;
+                break;
+            case is_bool($value):
+                $type = PDO::PARAM_BOOL;
+                break;
+            case is_null($value):
+                $type = PDO::PARAM_NULL;
+                break;
+            default:
+                $type = PDO::PARAM_STR;
+        }
+        $this->statement->bindValue($parameter, $value, $type);
+    }
+
+    //Execution du statement préparé
+    public function execute(){
+        return $this->statement->execute();
+    }
+
+    //Return une array
+    public function resultSet(){
+        $this->execute();
+        return $this->statement->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    //Retourne une ligne spécifique en tant qu'objet
+    public function single(){
+        $this->execute();
+        return $this->statement->fetch(PDO::FETCH_OBJ);
+    }
+
+    //Get the row count
+    public function rowCount(){
+        return $this->statement->rowCount();
     }
 }
