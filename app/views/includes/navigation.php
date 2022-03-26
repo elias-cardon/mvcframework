@@ -1,22 +1,22 @@
 <nav class="top-nav">
     <ul>
         <li>
-            <a href="<?php echo URLROOT; ?>/pages/index">Accueil</a>
+            <a href="<?php echo URLROOT; ?>/index">Home</a>
         </li>
         <li>
-            <a href="<?php echo URLROOT; ?>/pages/about">A propos</a>
+            <a href="<?php echo URLROOT; ?>/about">About</a>
         </li>
         <li>
-            <a href="<?php echo URLROOT; ?>/pages/projects">Projects</a>
+            <a href="<?php echo URLROOT; ?>/projects">Projects</a>
         </li>
         <li>
-            <a href="<?php echo URLROOT; ?>/pages/blog">Blog</a>
+            <a href="<?php echo URLROOT; ?>/posts">Blog</a>
         </li>
         <li>
-            <a href="<?php echo URLROOT; ?>/pages/contact">Contact</a>
+            <a href="<?php echo URLROOT; ?>/contact">Contact</a>
         </li>
         <li class="btn-login">
-            <a href="<?php echo URLROOT; ?>/users/login">Connexion</a>
+            <a href="<?php echo URLROOT; ?>/login">Login</a>
         </li>
     </ul>
 </nav>
