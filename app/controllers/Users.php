@@ -125,7 +125,7 @@ class Users extends Controller
             }
 
             //Verifie si les erreurs sont vides
-            if (empty($data['username']) && empty($data['password'])){
+            if (empty($data['usernameError']) && empty($data['passwordError'])) {
                 $loggedInUser = $this->userModel->login($data['username'], $data['password']);
 
                 if($loggedInUser){
@@ -151,12 +151,13 @@ class Users extends Controller
         $_SESSION['user_id'] = $user->id;
         $_SESSION['username'] = $user->username;
         $_SESSION['email'] = $user->email;
+        header('location:' . URLROOT . '/pages/index');
     }
 
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['username']);
         unset($_SESSION['email']);
-        header('location:' . URLROOT . 'pages/index');
+        header('location:' . URLROOT . '/pages/index');
     }
 }
