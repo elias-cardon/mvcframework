@@ -96,6 +96,8 @@ class Users extends Controller
     {
         $data = [
             'title' => 'Connexion',
+            'username' => '',
+            'password' => '',
             'usernameError' => '',
             'passwordError' => ''
         ];
@@ -125,9 +127,30 @@ class Users extends Controller
             //Verifie si les erreurs sont vides
             if (empty($data['username']) && empty($data['password'])){
                 $loggedInUser = $this->userModel->login($data['username'], $data['password']);
-            }
-        }
 
+                if($loggedInUser){
+                    $this->createUserSession($loggedInUser);
+                } else {
+                    $data['passwordError'] = 'Le pseudonyme ou le mot de passe est incorrect. Veuillez réessayer.';
+
+                    $this->view('users/login', $data);
+                }
+            }
+        } else {
+            $data = [
+                'username' => '',
+                'password' => '',
+                'usernameError' => '',
+                'passwordError' => ''
+            ];
+        }
         $this->view('users/login', $data);
+    }
+
+    public function createUserSession($user){
+        session_start();
+        $_SESSION['user_id'] = $user->id;
+        $_SESSION['username'] = $user->username;
+        $_SESSION['email'] = $user->email;
     }
 }
