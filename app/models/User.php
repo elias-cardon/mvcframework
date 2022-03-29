@@ -9,7 +9,8 @@ class User
         $this->db = new Database;
     }
 
-    public function register($data) {
+    public function register($data)
+    {
         $this->db->query('INSERT INTO users (user_name, user_email, password) VALUES (:username, :email, :password)');
 
         //Bind values
@@ -18,8 +19,26 @@ class User
         $this->db->bind(':password', $data['password']);
 
         //Exécution
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function login($username, $password)
+    {
+        $this->db->query('SELECT * FROM users WHERE username = :username');
+
+        //Bind value
+        $this->db->bind(':username', $username);
+
+        $row = $this->db->single();
+
+        $hashedPassword = $row->password;
+
+        if (password_verify($password, $hashedPassword)) {
+            return $row;
         } else {
             return false;
         }
