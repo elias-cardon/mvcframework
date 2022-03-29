@@ -33,10 +33,10 @@ require APPROOT . '/views/includes/head.php';
                 <?php echo $data['confirmPasswordError'];?>
             </span>
 
-            <button id="submit" type="submit" value="submit">Connexion</button>
+            <button id="submit" type="submit" value="submit">S'inscrire</button>
 
             <p class="options">
-                Pas encore inscrit ? <a href="<?php echo URLROOT;?>/users/register">S'inscrire</a>.
+                Déjà inscrit ? <a href="<?php echo URLROOT;?>/users/login">Se connecter</a>.
             </p>
         </form>
     </div>
