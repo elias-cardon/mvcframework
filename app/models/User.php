@@ -1,17 +1,25 @@
 <?php
 
-class User{
+class User
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new Database;
     }
 
-    /*public function getUsers(){
-        $this->db->query("SELECT * FROM users");
+    public function findUserByEmail($email)
+    {
+        $this->db->query('SELECT * FROM users WHERE email= :email');
 
-        $result = $this->db->resultSet();
+        $this->db->bind(':email', $email);
 
-        return $result;
-    }*/
+        //Vérifie si email existe déjà
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -16,7 +16,7 @@
             <a href="<?php echo URLROOT; ?>/contact">Contact</a>
         </li>
         <li class="btn-login">
-            <a href="<?php echo URLROOT; ?>/login">Login</a>
+            <a href="<?php echo URLROOT; ?>/users/login">Login</a>
         </li>
     </ul>
 </nav>
