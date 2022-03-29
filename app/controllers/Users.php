@@ -58,9 +58,9 @@ class Users extends Controller
             }
 
             //Validation du MdP (longueur et nombres)
-            if(empty($data['password'])){
+            if (empty($data['password'])) {
                 $data['passwordError'] = 'Veuillez renseigner un mot de passe.';
-            } elseif(strlen($data['password']) < 6){
+            } elseif (strlen($data['password']) < 6) {
                 $data['passwordError'] = 'Le mot de passe doit avoir au moins 6 caractères';
             } elseif (preg_match($passwordValidation, $data['password'])) {
                 $data['passwordError'] = 'Le mot de passe doit avoir des lettres et des nombres.';
@@ -81,7 +81,7 @@ class Users extends Controller
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //Register user from model function
-                if ($this->userModel->register($data)){
+                if ($this->userModel->register($data)) {
                     //Redirige vers la page de connexion
                     header('location: ' . URLROOT . '/users/login');
                 } else {
@@ -99,6 +99,34 @@ class Users extends Controller
             'usernameError' => '',
             'passwordError' => ''
         ];
+
+        //Check for post
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //Sanitize post data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'username' => trim($_POST['username']),
+                'password' => trim($_POST['password']),
+                'usernameError' => '',
+                'passwordError' => ''
+            ];
+
+            //On valide le pseudo
+            if (empty($data['username'])){
+                $data['usernameError'] = 'Veuillez renseigner un pseudonyme.';
+            }
+
+            //On valide le mot de passe
+            if (empty($data['password'])){
+                $data['passwordError'] = 'Veuillez renseigner un mot de passe.';
+            }
+
+            //Verifie si les erreurs sont vides
+            if (empty($data['username']) && empty($data['password'])){
+                $loggedInUser = $this->userModel->login($data['username'], $data['password']);
+            }
+        }
 
         $this->view('users/login', $data);
     }
