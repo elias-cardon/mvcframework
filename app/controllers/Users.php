@@ -58,12 +58,12 @@ class Users extends Controller
             }
 
             //Validation du MdP (longueur et nombres)
-            if (empty($data['password'])) {
+            if(empty($data['password'])){
                 $data['passwordError'] = 'Veuillez renseigner un mot de passe.';
-            } elseif (strlen($data['password' < 6])) {
-                $data['passwordError'] = 'Le mot de passe doit contenir au moins 6 caractères.';
-            } elseif (!preg_match($passwordValidation, $data['password'])) {
-                $data['passwordError'] = 'Veuillez utiliser que des lettres et des nombres.';
+            } elseif(strlen($data['password']) < 6){
+                $data['passwordError'] = 'Le mot de passe doit avoir au moins 6 caractères';
+            } elseif (preg_match($passwordValidation, $data['password'])) {
+                $data['passwordError'] = 'Le mot de passe doit avoir des lettres et des nombres.';
             }
 
             //On confirme le MdP
