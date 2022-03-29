@@ -148,9 +148,15 @@ class Users extends Controller
     }
 
     public function createUserSession($user){
-        session_start();
         $_SESSION['user_id'] = $user->id;
         $_SESSION['username'] = $user->username;
         $_SESSION['email'] = $user->email;
+    }
+
+    public function logout(){
+        unset($_SESSION['user_id']);
+        unset($_SESSION['username']);
+        unset($_SESSION['email']);
+        header('location:' . URLROOT . 'pages/index');
     }
 }
